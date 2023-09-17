@@ -1,0 +1,26 @@
+<div>
+    <h2>Productos</h2>
+    {{#each productos}}
+        <p>{{this.id}} {{this.title}} {{this.description}}</p>
+    {{/each}}
+
+    <hr />
+    pagingCounter: {{pagingCounter}}
+    totalPages: {{totalPages}}
+
+    <hr>
+    <h2>
+    {{#if hasPrevPage}}
+	<a style="text-decoration: none" href="
+        http://localhost:8080/products?page={{prevPage}}">🡠</a>
+        {{/if}}
+        {{page}}
+        {{#if hasNextPage}}
+	        <a style="text-decoration: none" href="
+        http://localhost:8080/products?page={{nextPage}}">🡢</a>
+    {{/if}}
+    </h2>
+    {{#each links}}
+    <a href="{{this.href}}">{{this.label}}</a>
+    {{/each}}
+</div>
