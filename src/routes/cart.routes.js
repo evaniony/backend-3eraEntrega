@@ -1,33 +1,36 @@
 import express from "express";
 export const routerCart = express.Router();
-import { cartModel } from "../DAO/models/cart.model.js";
+import { cartById, deleteCart, deleteProdToCart, putCartQty, updateCart } from "../controller/cart.controller.js";
 
-/* DELETE api/carts/:cid/products/:pid
- deberá eliminar del carrito el producto seleccionado. */
+//buscar carrito
+routerCart.get("/:cid", cartById);
 
- //Y NO ES GET - ES DELETE
+//elegir carrito, de su lista de productos, borrar determinado producto;
+routerCart.delete("/:cid/products/:pid", deleteProdToCart);
+
+//actualizar producto desde el req.params;
+routerCart.put("/:cid", updateCart);
+
+//actualiza cantidades del producto;
+routerCart.put("/:cid/products/:pid", putCartQty);
+
+//borra todos los productos del carrito, sin eliminar el array;
+routerCart.delete("/:cid", deleteCart);
 
 
- routerCart.get("/:cid", async (req, res) =>{
-    const { cid }  = req.params;
-    const findCart = await cartModel.findOne({_id: cid});
 
-    return res.status(200).json(
-        {status: "ok!",
-        msg: "encontramos algo",
-        data: findCart
-    });
 
-});
 
-routerCart.delete("/:cid/products/:pid", async (req, res) => {
+
+
+/* async (req, res) => {
     const { cid, pid } = req.params;
     
     try {
-        const filter = { _id: cid };
-        const update = { $pull: { products: { product: pid } } };
+        //const filter = { _id: cid };
+        //const update = { $pull: { products: { product: pid } } };
         
-        const result = await cartModel.updateOne(filter, update);
+        //const result = await cartModel.updateOne(filter, update);
         
         if (result.modifiedCount > 0) {
             res.status(200).json({ message: "Product removed from cart successfully." });
@@ -37,10 +40,10 @@ routerCart.delete("/:cid/products/:pid", async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: "An error occurred while removing the product from the cart." });
     }
-});
+}); */
 
 //actualizar
-routerCart.put("/:cid", async (req, res) => {
+/* routerCart.put("/:cid", async (req, res) => {
     try {
       const { cid } = req.params;
       const { pid } = req.body;
@@ -78,9 +81,9 @@ routerCart.put("/:cid", async (req, res) => {
         msg: "Error interno del servidor"
       });
     }
-  });
+  }); */
 
-  routerCart.put("/:cid/products/:pid", async (req, res) => {
+  /* routerCart.put("/:cid/products/:pid", async (req, res) => {
     try {
       const { cid, pid } = req.params;
       const { quantity } = req.body;
@@ -129,10 +132,10 @@ routerCart.put("/:cid", async (req, res) => {
       });
     }
   });
-
+ */
 
 //DELETE api/carts/:cid deberá eliminar todos los productos del carrito (ojo! vaciar el array)
-routerCart.delete("/:cid", async (req, res) =>{
+/* routerCart.delete("/:cid", async (req, res) =>{
     try {
         const { cid } = req.params;
         let authCart = await cartModel.findOne({ _id: cid });
@@ -173,7 +176,7 @@ routerCart.delete("/:cid", async (req, res) =>{
       });
     }
 })
-
+ */
 
 
  

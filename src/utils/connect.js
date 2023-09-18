@@ -1,6 +1,6 @@
 import { connect } from "mongoose";
-import { productModel } from "./DAO/models/product.model.js";
-import { cartModel } from "./DAO/models/cart.model.js";
+import { productModel } from "../DAO/models/product.model.js";
+import { cartModel } from "../DAO/models/cart.model.js";
 export async function connectMongo() {
   try {
     await connect(
