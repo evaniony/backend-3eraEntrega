@@ -1,6 +1,10 @@
 import  express  from "express";
 export const routerProducts = express.Router();
-import { getAllProducts } from "../controller/product.controller.js";
+import { getAllProducts, getProdById, renderProducts } from "../controller/product.controller.js";
 
 //todos los productos;
-routerProducts.get("/", getAllProducts);
+//routerProducts.get("/", getAllProducts);
+
+//producto por id;
+//routerProducts.get("/:id", getProdById);
+routerProducts.get("/", renderProducts);

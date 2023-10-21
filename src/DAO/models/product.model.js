@@ -2,7 +2,6 @@ import { Schema, model } from "mongoose";
 import mongoosePaginate from "mongoose-paginate-v2";
 
 const schema = new Schema({
-        //first_name: { type: String }
         title: { type: String },
         description: { type: String },
         price: { type: Number },

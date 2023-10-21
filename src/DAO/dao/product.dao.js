@@ -2,11 +2,21 @@ import { productModel } from "../models/product.model.js";
 
 class Product {
     //obtener todos los productos --- PASA AL SERVICE
-    getProducts = async () => {
+    async getProducts(){
       const products = await productModel.find();
-  
       return products;
     };
+
+    async getProdById(id){
+      const find = await productModel.findOne({_id: id});
+            return find;
+    }
+
+    async createProd(){
+      const {title, description, price, thumbnail, code, stock, category, status} = req.body;
+      const newProd = productModel.create({title, description, price, thumbnail, code, stock, category, status});
+      return newProd;
+    }
 };
 
 export const product = new Product();

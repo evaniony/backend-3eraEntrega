@@ -2,32 +2,26 @@ import { cartModel } from "../models/cart.model.js";
 //18/09
 //crear metodo de actualizacion reutilizable;
 class Cart {
-    getCartById = async (cid) => {
-        const findCart = await cartModel.findOne({_id: cid});
-            return findCart;
-    };
 
-    //no, se me ocurrira otro tipo de nombre para el parametro;
-    deleteProdCart = async (a, b) => {
+    getAllCarts = async () => {
+        const allCarts = await cartModel.find();
+        return allCarts;
+    }
+
+    updateCart = async (a, b) => {
         const result = await cartModel.updateOne(a, b);
         return result;  
     };
 
-    updateCart = async (cid) => {
-        let authCart = await cartModel.findOne({ _id: cid });
-            return authCart;
+    findById = async (cid) => {
+        const find = await cartModel.findById({_id: cid});
+            return find;
     };
 
-    qtyProd = async (cid) => {
-        let authCart = await cartModel.findOne({ _id: cid });
-        return authCart;
-
-    };
-
-    deleteArrayCart = async (cid) =>{
-        let authCart = await cartModel.findOne({ _id: cid });
-        return authCart;
-    }
+    async createCart(cartId) {
+        const cartCreated = await cartModel.create({ _id: cartId });
+        return cartCreated;
+}
 };
 
 export const cart = new Cart();

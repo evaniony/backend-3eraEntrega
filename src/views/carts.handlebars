@@ -1,0 +1,12 @@
+<div>
+    <h3>Hola, {{firstName}}</h3>
+    <h1>Compra total</h1>
+    {{#each search}}
+    <div>
+        <b><p>{{this.product.title}}</p></b>
+        <p>{{this.product.price}}</p>
+        <p>{{this.quantity}}</p>
+    </div>
+    {{/each}}
+
+</div>
