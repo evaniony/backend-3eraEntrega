@@ -10,10 +10,10 @@ import { loginRouter } from "./routes/login.routes.js";
 import { viewsRouter } from "./routes/views.routes.js";
 import session from "express-session";
 import MongoStore from "connect-mongo";
-import { env } from "./config.js";
+//import { env } from "./config.js";
 
 const app = express();
-const PORT = env.port;
+const PORT = 8080 /* env.port; */
 app.use(express.json());
 app.use(express.urlencoded( {extended: true} ));
 
@@ -21,8 +21,9 @@ app.use(express.urlencoded( {extended: true} ));
 app.use(
     session({
       store: MongoStore.create(
-        { mongoUrl: process.env.MONGO_URL}),
+        { mongoUrl: "mongodb+srv://evaniony:rPapt8OncnP10D43@ebi-cluster.lazfhch.mongodb.net/?retryWrites=true&w=majority" /* process.env.MONGO_URL */}),
       secret: 'un-re-secreto',
+      ttl: 8700*7,
       resave: true,
       saveUninitialized: true,
     })
