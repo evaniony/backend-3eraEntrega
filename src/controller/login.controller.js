@@ -1,32 +1,28 @@
 import { users } from "../DAO/dao/users.dao.js";
 import { userService } from "../services/users.service.js";
+import { isValidPassword } from "../utils/passwords.js";
 
 class LoginController {
 
     async loginUser(req, res) {
         const {email, password} = req.body;
-          if(!email || !password){
+        if(!email || !password){
           return res.status(401).render(
           "error-page",
            {msg: "Error: faltan datos;"}
            );
-      }
-          try {
-            const foundUser = await users.getOne(email);
-            console.log(foundUser);
-            if(foundUser && isValidPassword(password, foundUser.password)){
-              req.session.user = {
-                _id: foundUser._id,
+        }
+        try {
+          const foundUser = await users.getOne(email);
+            //esto no lo hace el controller
+          if(foundUser && isValidPassword(password, foundUser.password)){
+            req.session.user = {
                 firstName: foundUser.firstName,
-                lastName: foundUser.lastName,
-                age: foundUser.age,
                 email: foundUser.email,
                 role: foundUser.role,
-                premium: foundUser.premium,
-                cartId: foundUser.cartID,
-                purchase_made: foundUser.purchase_made
                 };
-                return res.redirect("/products");
+                console.log(req.session.user);
+                return res.render("products", req.session.user);
             }else{
                 return res.status(400).render(
                     "error-page",
@@ -76,7 +72,8 @@ class LoginController {
           const userCreated = await userService.createUser(firstName, lastName, email, age, password);
           req.session.user = userCreated;
 
-          return res.redirect("/products");
+          //return res.redirect("/products");
+          return res.render("products");
           
         } catch (error) {
           return res.status(401).render(
