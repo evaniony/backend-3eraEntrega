@@ -22,7 +22,7 @@ viewsRouter.get("/user", async (req, res) => {
     res.render("users");
 });
 
-viewsRouter.get("/cart", async (req, res) => {
+viewsRouter.get("/cart", checkUser, async (req, res) => {
     res.render("carts");
 });
 

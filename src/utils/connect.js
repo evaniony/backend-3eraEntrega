@@ -5,7 +5,7 @@ import { cartModel } from "../DAO/models/cart.model.js";
 import { enviroment } from "../env.config.js";
 export async function connectMongo() {
   try {
-    await connect("");
+    await connect(enviroment.MONGO_URL);
   } catch (e) {
     throw "Falló la conexion";
   }

@@ -11,7 +11,7 @@ class TicketService{
     };
 
     async ticketAll(id){
-        const alltickets = await ticket.ticketForCart(id);
+        const alltickets = await ticket.getAllticket();
         return alltickets;
     };
 
@@ -19,11 +19,12 @@ class TicketService{
         try {
             //tener en cuenta que el carrito contiene un array de productos
             const ticketFormatted = [];
+            console.log(ticketFormatted);
 
-            for (const boleto of tickets) {
+            for (const result of tickets) {
                 //products es el array que contiene el ticket
                 //mapear el array productos, y obtener el producto del producto de productos??
-            const productid = boleto.products.map(product => product.product);
+            const productid = result.products.map(product => product.product);
             //luego de haber obtenido los productos del ticket
             //filtramos por id a cada producto;
             const productsList = await product.getProdById(productid);

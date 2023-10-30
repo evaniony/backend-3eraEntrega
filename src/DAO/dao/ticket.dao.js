@@ -19,6 +19,11 @@ class Ticket{
         return created;
     }
 
+    async getAllticket(){
+        const tickets = await ticketModel.find();
+        return tickets;
+    };
+
 
 }
 

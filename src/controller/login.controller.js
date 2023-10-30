@@ -20,8 +20,9 @@ class LoginController {
                 firstName: foundUser.firstName,
                 email: foundUser.email,
                 role: foundUser.role,
+                cartID: foundUser.cartID
                 };
-                console.log(req.session.user);
+                //console.log(req.session.user);
                 return res.render("products", req.session.user);
             }else{
                 return res.status(400).render(
@@ -69,7 +70,7 @@ class LoginController {
             );
           };
         try {
-          const userCreated = await userService.createUser(firstName, lastName, email, age, password);
+          const userCreated = await userService.createUser(firstName, lastName, email, age, password, cartID);
           req.session.user = userCreated;
 
           //return res.redirect("/products");

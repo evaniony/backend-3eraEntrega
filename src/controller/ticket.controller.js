@@ -27,9 +27,20 @@ class TicketController{
 		}
 	}
 
+	async getAllticket(_, res) {
+		try {
+			const ticket = await ticketService.ticketAll();
+			return res.status(200).json({
+				status: "success", ticket});
+		} catch (e) {
+			//logger.error(e.message);
+			res.status(500).json({ error: "Error en el servidor" });
+		}
+	}
+
 	async ticketRender(req, res) {
 		try {
-			//const user = req.session.user;
+			const user = req.session.user;
 			const cart = await cartService.getCart(user.cartId);
 			const tickets = await ticketService.ticketAll(cart._id);
 
@@ -52,25 +63,27 @@ class TicketController{
 
 	async create(req, res) {
 		try {
-			//const user = req.session.user;
-			
-			
 			const { usuario, cart_id, total } = req.body;
+			req.session.user = usuario;
+			//se supone que estamos en el ambito del usuario logeado
 			const purchase = new TicketsDTO({
 				usuario,
 				cart_id,
-				total: "",
+				total,
 			});
+			//busca el carrito;
 			const cartData = await cartService.getCart(cart_id);
 			const newTicket = await ticketService.create(purchase, cartData.products);
 
 			return res.status(201).json({
 				status: "success",
-				msg: "Producto Creado"
+				msg: "Ticket generado! Gracias por tu compra, pana",
+				payload: newTicket
 			});
 		} catch (e) {
 			//logger.error(e.message);
-			res.status(403).json({ msg: "se ha generado, pero no se visualiza correctamente" });
+			//res.status(403).json({ msg: "se ha generado, pero no se visualiza correctamente" });
+			res.status(500).json({ msg: "ERROR DEL SERVIDOR" });
 		}
 	}
 }

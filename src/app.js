@@ -22,7 +22,7 @@ app.use(express.urlencoded( {extended: true} ));
 app.use(
     session({
       store: MongoStore.create(
-        { mongoUrl: ""}),
+        { mongoUrl: enviroment.MONGO_URL}),
       secret: 'un-re-secreto',
       ttl: 8700*7,
       resave: true,
@@ -45,7 +45,7 @@ app.use("/carts", routerCart);
 app.use("/users", usersRouter);
 app.use("/ticket", ticketRouter);
 
-app.use("/shop", loginRouter);
+app.use("/", loginRouter);
 //app.use("/shop", loginRouter);
 
 app.use("/", viewsRouter);

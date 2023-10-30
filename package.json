@@ -7,7 +7,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./src/app.js",
-    "dev": "nodemon ./src/app.js"
+    "dev": "nodemon ./src/app.js DEV"
   },
   "keywords": [],
   "author": "",
@@ -22,5 +22,8 @@
     "express-session": "^1.17.3",
     "mongoose": "^7.4.0",
     "mongoose-paginate-v2": "^1.7.23"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.9"
   }
 }

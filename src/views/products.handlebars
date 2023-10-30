@@ -1,25 +1,22 @@
 <div>
     <h3>Hola, {{firstName}}</h3>
     <a href="/logout">cerrar sesion</a>
-    <p>carrito: {{cartID}}</p>
-    <p>{{firstName}}</p>
+    <a href="/carts/{{cartID}}">ver carrito</a>
     <h1>maceta</h1>
     <p>Tienda de ceramica</p>
     <hr>
-    <div>
-
-    </div>
+    <a href="/products">ver todos los productos disponibles</a>
     <div>
         <h2>shop</h2>
         {{{title}}}
         <div>
-        {{#each productos}}
+        {{#each products}}
         <ul>
             <b><li>{{this.title}}</li></b>
             <li>{{this.description}}</li>
             <li>{{this.price}}</li>
         </ul>
-        <button>add to cart</button>
+        <button class="add-product">add to cart</button>
         </div>
         {{/each}}
     </div>

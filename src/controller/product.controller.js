@@ -79,23 +79,31 @@ export const renderProducts = async (req, res) => {
     const cartQuantity = cart.products.reduce((total, product) => {
         return total + product.quantity;
     }, 0); */
-    let products = product.getProducts();
-    let productos = (await products).map((prod) => {
+    const firstName = req.session.user.firstName;
+
+    let data = await product.getProducts();
+    let products = [];
+        products =  data.map(prod => {
+            return {
+                title: prod.title,
+                price: prod.price,
+                description: prod.description
+                };
+        });
+        console.log(req.session.user);
+    /* let productos = await products.map((prod) => {
         return {
              title: prod.title,
              price: prod.price,
              description: prod.description
              };
-      });
+      }); */
     //const firstName = req.session.user.firstName;
     const title = "Listado de Productos";
-    return res.status(200).render("products", {
-      title,
-      productos,
-    });
+    return res.render("products", {title, products, firstName});
 } catch (e) {
     console.log(e);
-  res.status(501).send(
+  res.status(500).send(
     { status: "error",
     msg: "Error en el servidor",
     error: e.msg });
